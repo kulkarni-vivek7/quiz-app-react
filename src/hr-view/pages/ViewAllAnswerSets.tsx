@@ -84,7 +84,7 @@ const ViewAllAnswerSets = () => {
           </h1>
 
           <Paper sx={{ marginBottom: 4, padding: 1, boxShadow: 3, borderRadius: '0.5rem', backgroundColor: 'white', overflowX: 'auto' }}>
-            <TableContainer sx={{ maxHeight: rowsPerPage !== 5 ? 350 : 'auto', overflowY: rowsPerPage !== 5 ? 'auto' : 'hidden' }}>
+            <TableContainer sx={{ maxHeight: 350, overflowY: 'auto' }}>
               <Table stickyHeader aria-label="Answer Set table" sx={{ minWidth: '100%' }}>
                 <TableHead>
                   <TableRow sx={{ backgroundColor: '#e5e7eb' }}>
