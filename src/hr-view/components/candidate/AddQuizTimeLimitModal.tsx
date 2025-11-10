@@ -74,12 +74,6 @@ const AddQuizTimeLimitModal: React.FC<AddQuizTimeLimitModalProps> = ({ open, set
     setFieldErrors({});
     setFormErrorMsg('');
     setSuccessMsg('');
-    // setEnrollmentResponse({
-    //   candidateId: '',
-    //   subject: [],
-    //   inviteLink: '',
-    //   quizTimeLimit: ''
-    // });
     setIsSubmitting(false);
     setHasAddedTimeLimit(false);
     clearTimers();
