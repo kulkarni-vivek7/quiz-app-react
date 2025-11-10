@@ -1,30 +1,29 @@
 import axios from "axios";
-import { z } from "zod"
-import type { QuestionWithoutAnswerType } from "../types";
+import { z } from "zod";
+import type { UserDetails } from "../../types";
 
-export const studentSchema = z.object({
+const registerHrSchema = z.object({
     name: z.string().nonempty("Name is required").min(2, "Name must be at least 2 characters long"),
-    age: z.number().int().min(1, "Age must be positive"),
     email: z.email().nonempty("Email is required"),
     phone: z.string().nonempty("Phone is required").regex(/^\d{10}$/, "Phone must be 10 digits"),
-    subject: z.string().nonempty("Subject is required"),
 })
 
-export type StudentInput = z.infer<typeof studentSchema>
+export type HrInput = z.infer<typeof registerHrSchema>;
 
 export type RegisterFormState = {
-    errors: { 
+    errors: {
         [key: string]: string[]
     };
     success: boolean;
     timestamp: number;
-    result?: QuestionWithoutAnswerType[];
+    result?: UserDetails;
 }
 
-export const enrollStudent = async (data: StudentInput): 
-Promise<RegisterFormState> => {
+export const registerHr = async (data: HrInput): Promise<RegisterFormState> => {
 
-    const result = studentSchema.safeParse(data);
+    const BACKEND_URL = import.meta.env.VITE_BACKEND_URL as string;
+
+    const result = registerHrSchema.safeParse(data);
 
     if (!result.success) {
         return {
@@ -36,16 +35,18 @@ Promise<RegisterFormState> => {
 
     try {
 
-        const res = await axios.post("http://localhost:8081/api/student/enroll", data)
+        const res = await axios.post(`${BACKEND_URL}api/auth/register`, data);
 
-        if (res.status === 200) {
+        if (res.status === 201)
+        {
             return {
                 errors: {},
                 success: true,
                 timestamp: Date.now(),
-                result: res.data,
+                result: res.data?.body,
             }
         }
+
         else
         {
             return {
@@ -54,10 +55,10 @@ Promise<RegisterFormState> => {
                 timestamp: Date.now(),
             }
         }
-        
-    } catch (error: any) {
+    }
+    catch (error: any) {
         return {
-            errors: { formErrors: [error?.response?.data?.message || "Registration failed!"]},
+            errors: { formErrors: [error?.response?.data?.message || "Registration failed!"] },
             success: false,
             timestamp: Date.now(),
         }
