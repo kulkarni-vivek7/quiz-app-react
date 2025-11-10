@@ -104,7 +104,7 @@ const ViewAllCandidates = () => {
                     ) : candidates.length === 0 ? (
                       <TableRow>
                         <TableCell colSpan={7} sx={{ textAlign: 'center', paddingY: 1.1, color: '#6b7280' }}>
-                          No candidates found.
+                          No quiz pending candidates found.
                         </TableCell>
                       </TableRow>
                     ) : (
