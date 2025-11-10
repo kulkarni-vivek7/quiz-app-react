@@ -69,22 +69,19 @@ const AddQuizTimeLimitModal: React.FC<AddQuizTimeLimitModalProps> = ({ open, set
     timers.current = {};
   }, []);
 
-  const resetState = useCallback(({ keepQuizLinkModalOpen = false } = {}) => {
+  const resetState = useCallback(() => {
     setTimeLimitInMinutes('');
     setFieldErrors({});
     setFormErrorMsg('');
     setSuccessMsg('');
-    setEnrollmentResponse({
-      candidateId: '',
-      subject: [],
-      inviteLink: '',
-      quizTimeLimit: ''
-    });
+    // setEnrollmentResponse({
+    //   candidateId: '',
+    //   subject: [],
+    //   inviteLink: '',
+    //   quizTimeLimit: ''
+    // });
     setIsSubmitting(false);
     setHasAddedTimeLimit(false);
-    if (!keepQuizLinkModalOpen) {
-      setOpenQuizLinkDisplayModal(false);
-    }
     clearTimers();
   }, [clearTimers]);
 
@@ -127,8 +124,8 @@ const AddQuizTimeLimitModal: React.FC<AddQuizTimeLimitModalProps> = ({ open, set
   const forceClose = useCallback(() => {
     setOpen(false);
     // When closing, we want to reset everything except the quiz link modal state
-    resetState({ keepQuizLinkModalOpen: openQuizLinkDisplayModal });
-  }, [resetState, setOpen, openQuizLinkDisplayModal]);
+    resetState();
+  }, [resetState, setOpen]);
 
   const handleProtectedClose = useCallback(() => {
     if (!hasAddedTimeLimit) {
@@ -212,10 +209,13 @@ const AddQuizTimeLimitModal: React.FC<AddQuizTimeLimitModalProps> = ({ open, set
       quizTimeLimit: ''
     });
 
+    // Show success message and open the quiz link modal
     showSuccessMsg('Quiz time limit added successfully!\nQuiz Link Will Be Sent To the Candidate\'s Email', () => {
-      setOpenQuizLinkDisplayModal(true); // Show the modal first
-      forceClose(); // Then close the current modal
+      // This callback runs after the success message timeout
+      forceClose();
     });
+    
+    setOpenQuizLinkDisplayModal(true);
   };
 
   const isSubmitDisabled = !timeLimitInMinutes || !candidateId || isSubmitting;
