@@ -586,13 +586,30 @@ const AddQuestionModal: React.FC<AddQuestionModalProps> = ({ open, setOpen, onQu
                       onChange={(event) =>
                         handleMcqFieldChange(index, "correctOptionIndex", event.target.value)
                       }
+                      onKeyDown={(e) => {
+                        // Allow only arrow up, arrow down, and tab keys
+                        if (![38, 40, 9].includes(e.keyCode)) {
+                          e.preventDefault();
+                        }
+                      }}
+                      onPaste={(e) => {
+                        e.preventDefault(); // Prevent pasting
+                      }}
+                      onKeyPress={(e) => {
+                        // Prevent any direct input
+                        e.preventDefault();
+                      }}
                       fullWidth
                       required
-                      inputProps={{ min: 0, max: mcq.options.length - 1 }}
+                      inputProps={{
+                        min: 0,
+                        max: mcq.options.length - 1,
+                        style: { WebkitAppearance: 'textfield' }, // Hide the default number input spinners
+                      }}
                       error={!!getFieldError(`${baseKey}.correctOptionIndex`, `${index}.correctOptionIndex`)}
                       helperText={
                         getFieldError(`${baseKey}.correctOptionIndex`, `${index}.correctOptionIndex`) ??
-                        "Enter index between 0 and 3"
+                        "Use up/down arrows to select index between 0 and 3"
                       }
                     />
                   </Paper>
