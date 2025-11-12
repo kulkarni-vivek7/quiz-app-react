@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, Box, Typography, IconButton, Table, TableBody, TableCell, TableContainer, TableRow, Paper } from '@mui/material';
+import { Modal, Box, Typography, IconButton, Table, TableBody, TableCell, TableContainer, TableRow, Paper, Tooltip } from '@mui/material';
 import { Close as CloseIcon, ContentCopy as CopyIcon } from '@mui/icons-material';
 import type { EnrollmentResponse } from '../../../types';
 import { formatSubjectName } from '../../../services/candidate/formatSubjectName';
@@ -175,21 +175,20 @@ const QuizLinkDisplayModal: React.FC<QuizLinkDisplayModalProps> = ({ open, setOp
                                     >
                                         {quizData.inviteLink || 'N/A'}
                                     </Typography>
-                                    <IconButton
-                                        title={isQuizInviteUsed ? "Quiz invite already used - copying disabled" : "Copy link"}
-                                        onClick={handleCopyLink}
-                                        size="small"
-                                        disabled={isQuizInviteUsed}
-                                        sx={{
-                                            color: isQuizInviteUsed ? 'grey.400' : '#1e293b',
-                                            '&:hover': {
-                                                backgroundColor: isQuizInviteUsed ? 'transparent' : 'rgba(30, 41, 59, 0.1)',
-                                            }
-                                        }}
-                                    // 
-                                    >
-                                        <CopyIcon fontSize="small" />
-                                    </IconButton>
+                                    <Tooltip title={isQuizInviteUsed ? "Quiz invite already used - copying disabled" : "Copy link"}>
+                                        <IconButton
+                                            onClick={handleCopyLink}
+                                            size="small"
+                                            sx={{
+                                                color: isQuizInviteUsed ? 'grey.400' : '#1e293b',
+                                                '&:hover': {
+                                                    backgroundColor: isQuizInviteUsed ? 'transparent' : 'rgba(30, 41, 59, 0.1)',
+                                                }
+                                            }}
+                                        >
+                                            <CopyIcon fontSize="small" />
+                                        </IconButton>
+                                    </Tooltip>
                                 </TableCell>
                             </TableRow>
                             <TableRow>

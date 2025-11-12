@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { type EnrollmentResponse, type Candidate, type QuizInvite } from '../../types'
 import { useAppSelector } from '../../store/hooks';
 import { findAllQuizCompletedCandidates } from '../../query/find-all-candidates';
-import { Box, Button, Dialog, DialogContent, DialogTitle, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Typography } from '@mui/material';
+import { Box, Button, Dialog, DialogContent, DialogTitle, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Tooltip, Typography } from '@mui/material';
 import LinkIcon from '@mui/icons-material/Link';
 import QuizLinkDisplayModal from '../components/candidate/QuizLinkDisplayModal';
 import { constructQuizLinkResponse } from '../../services/quiz/construct-quiz-link';
@@ -162,15 +162,19 @@ const ViewAllQuizCompletedCandidatesModal: React.FC<ViewAllQuizCompletedCandidat
                                                         </Button>
                                                     </TableCell>
                                                     <TableCell sx={{ paddingY: 1.1, paddingX: 2, textAlign: 'center' }}>
-                                                        <IconButton title='View Quiz Link' sx={{ color: '#1e293b', cursor: 'pointer' }} onClick={async () => {
-                                                            await constructQuizLinkResponse(encryptedJwt, candidate.id, candidate.subject, setQuizInvite, setEnrollmentResponse, setQuizLinkDisplayModalOpen)
-                                                        }}>
-                                                            <LinkIcon />
-                                                        </IconButton>
-                                                        
-                                                        <IconButton title='Delete Candidate' sx={{ color: '#1e293b', cursor: 'pointer' }} onClick={async () => await deleteCandidateHandler(encryptedJwt, candidate.id, setErrorMsg, handleRefreshTrigger)}>
-                                                            <DeleteIcon />
-                                                        </IconButton>
+                                                        <Tooltip title='View Quiz Link'>
+                                                            <IconButton sx={{ color: '#1e293b', cursor: 'pointer' }} onClick={async () => {
+                                                                await constructQuizLinkResponse(encryptedJwt, candidate.id, candidate.subject, setQuizInvite, setEnrollmentResponse, setQuizLinkDisplayModalOpen)
+                                                            }}>
+                                                                <LinkIcon />
+                                                            </IconButton>
+                                                        </Tooltip>
+
+                                                        <Tooltip title='Delete Candidate'>
+                                                            <IconButton sx={{ color: '#1e293b', cursor: 'pointer' }} onClick={async () => await deleteCandidateHandler(encryptedJwt, candidate.id, setErrorMsg, handleRefreshTrigger)}>
+                                                                <DeleteIcon />
+                                                            </IconButton>
+                                                        </Tooltip>
                                                     </TableCell>
                                                 </TableRow>
                                             ))
