@@ -160,6 +160,8 @@ const ViewAllCandidates = () => {
                 setPage(0)
               }}
               sx={{ marginTop: 1 }}
+              showFirstButton
+              showLastButton
             />
           </Paper>
 

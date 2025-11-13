@@ -165,6 +165,8 @@ const ViewAllAnswerSets = () => {
                 setPage(0)
               }}
               sx={{ marginTop: 1 }}
+              showFirstButton
+              showLastButton
             />
           </Paper>
         </div>

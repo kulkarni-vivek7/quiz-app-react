@@ -239,6 +239,8 @@ const SearchQuestionModal: React.FC<SearchQuestionModalPros> = ({ open, setOpen 
                 setPage(0)
               }}
               sx={{ marginTop: 1 }}
+              showFirstButton
+              showLastButton
             />
           </Paper>
 
