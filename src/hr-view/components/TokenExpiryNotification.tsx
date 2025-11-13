@@ -26,7 +26,7 @@ export const TokenExpiryNotification = () => {
     <Snackbar
       open={showNotification}
       anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-      sx={{ mt: 8, width: '100%' }}
+      sx={{ mt: 4, width: '100%' }}
     >
       <Alert 
         severity="warning" 
