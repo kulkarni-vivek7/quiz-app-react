@@ -197,6 +197,8 @@ const ViewAllQuizCompletedCandidatesModal: React.FC<ViewAllQuizCompletedCandidat
                                 setPage(0)
                             }}
                             sx={{ marginTop: 1 }}
+                            showFirstButton
+                            showLastButton
                         />
                     </Paper>
                 </DialogContent>
