@@ -34,7 +34,8 @@ const storage = typeof window !== 'undefined'
 const authPersistConfig = {
     key: 'auth',
     storage,
-    whitelist: ["name", "email", "jwt"],
+    whitelist: ["email", "jwt"],
+    blacklist: ["showExpiryNotification"]
 };
 
 const quizPersistConfig = {

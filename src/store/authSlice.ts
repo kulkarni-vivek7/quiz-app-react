@@ -4,11 +4,13 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 type AuthState = {
     email: string;
     jwt: string;
+    showExpiryNotification: boolean;
 }
 
 const initialState: AuthState = {
     email: '',
-    jwt: ''
+    jwt: '',
+    showExpiryNotification: false
 }
 
 const authSlice = createSlice({
@@ -21,12 +23,16 @@ const authSlice = createSlice({
         setJwtSlice(state, action: PayloadAction<string>) {
             state.jwt = encryptJWT(action.payload);
         },
+        showTokenExpiryNotification(state) {
+            state.showExpiryNotification = true;
+        },
         clearAuthSlice(state) {
-            state.email = '',
-            state.jwt = ''
+            state.email = '';
+            state.jwt = '';
+            state.showExpiryNotification = false;
         }
     }
 })
 
-export const { setEmailSlice, setJwtSlice, clearAuthSlice } = authSlice.actions;
+export const { setEmailSlice, setJwtSlice, clearAuthSlice, showTokenExpiryNotification } = authSlice.actions;
 export default authSlice.reducer;
